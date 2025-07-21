@@ -52,7 +52,7 @@ git clone https://github.com/Chlna6666/kovi-plugin-mc-motd.git
 ### 核心框架
 - [Kovi Bot](https://github.com/ThriceCola/Kovi)  
   提供机器人核心功能支持  
-  协议：MPL-2.0 license
+  协议：Mozilla Public License 2.0 (MPL-2.0)
 
 ### MOTD 协议实现
 - [MCBE-Server-Motd](https://github.com/BlackBEDevelopment/MCBE-Server-Motd/)  
