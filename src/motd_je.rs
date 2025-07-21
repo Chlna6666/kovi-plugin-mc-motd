@@ -1,3 +1,11 @@
+// 本文件基于 [MCBE-Server-Motd](https://github.com/BlackBEDevelopment/MCBE-Server-Motd/) 从 Go 转换至 Rust
+// 原始代码版权所有 (c) BlackBEDevelopment - 遵循 MPL-2.0 协议
+// 转换日期：2025-07-22
+// 转换工具：AI 辅助工具
+//
+// 此文件遵循 Mozilla Public License 2.0 (MPL-2.0)
+// 完整协议文本：https://mozilla.org/MPL/2.0/
+
 use tokio::net::TcpStream;
 use tokio::time::{timeout, Duration};
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
