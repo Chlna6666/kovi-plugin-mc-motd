@@ -1,0 +1,18 @@
+
+[package]
+name = "kovi-plugin-mc-motd"
+version = "0.1.10"
+edition = "2024"
+license = ""
+authors = ["Chlna6666"]
+description = "基于kovi的mcmotd"
+categories = []
+repository = "https://github.com/Chlna6666/kovi-plugin-mc-motd"
+keywords = ["kovi", "kovi-plugin", "mc-motd", "minecraft"]
+
+
+[dependencies]
+kovi.workspace = true
+tokio = "1.46.1"
+byteorder = "1.5.0"
+bytes = "1.10.1"
