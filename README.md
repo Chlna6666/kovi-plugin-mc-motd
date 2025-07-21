@@ -1,0 +1,1 @@
+# kovi-plugin-mc-motd
