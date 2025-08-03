@@ -1,23 +1,33 @@
-use std::net::{IpAddr, ToSocketAddrs};
+use std::net::IpAddr;
+use regex::Regex;
+use lazy_static::lazy_static;
 
-// 检查 IP 地址或域名是否合法
+/// 检查 IP 地址或域名是否合法
 pub fn is_valid_ip_or_domain(host: &str) -> bool {
-    // 分割 host 和端口（如果有端口）
-    let host = host.split(':').next().unwrap_or(host); // 获取主机部分
-    
-    // 先尝试解析为 IP 地址，若解析失败则检查域名
-    if let Ok(_) = host.parse::<IpAddr>() {
-        return true; // 如果是有效的 IP 地址，直接返回 true
+    // 只保留主机部分，不含端口
+    let host = host.split(':').next().unwrap_or(host);
+
+    // 尝试解析为 IP 地址
+    if host.parse::<IpAddr>().is_ok() {
+        return true;
     }
 
-    // 尝试进行域名解析
-    let addr = format!("{}:0", host); // 使用端口占位符
-    addr.to_socket_addrs()
-        .map(|mut addrs| addrs.next().is_some()) // 如果域名解析成功，则返回 true
-        .unwrap_or(false)
+    // 使用正则检查域名格式
+    // 支持子域名和顶级域名，标签以字母/数字开头和结尾，中间可含中划线
+    lazy_static! {
+        static ref DOMAIN_REGEX: Regex = Regex::new(
+            r"^(?xi)
+            [a-z0-9]                                    # 起始字符
+            (?:[a-z0-9-]{0,61}[a-z0-9])?                 # 可选中间字符
+            (?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)* # 子域名部分
+            $"
+        ).unwrap();
+    }
+
+    DOMAIN_REGEX.is_match(host)
 }
 
-// 检查端口号是否合法（1-65535）
+/// 检查端口号是否合法（1-65535）
 pub fn is_valid_port(port: u16) -> bool {
-    port >= 1 && port <= 65535
+    (1..=65535).contains(&port)
 }
